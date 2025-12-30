@@ -21,6 +21,7 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.RefObject<HTM
               Construindo o futuro, <span className="text-zinc-200 decoration-pink-500 underline underline-offset-4">linha por linha</span>.
             </p>
           </div>
+          
           <CodeTyper ref={props.codeBoxRef} />
           <div className="hero-status flex items-center justify-center md:justify-start gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest text-zinc-500 animate-pulse">
             <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>

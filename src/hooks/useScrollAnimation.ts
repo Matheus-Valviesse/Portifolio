@@ -35,6 +35,7 @@ export const useScrollAnimation = (
 
       // 3. Função de Transição
       const gotoSection = (index: number) => {
+        console.log(index)
         if (animating.current) return;
         animating.current = true;
         const currentRef = sections[currentIndex.current].current;
@@ -54,6 +55,7 @@ export const useScrollAnimation = (
         
         // Exemplo genérico de transição (pode ser customizado por case como no original)
         if (isNext) {
+          console.log(isNext)
             tl.to(currentRef, { yPercent: -100, autoAlpha: 0 })
               .fromTo(nextRef, { yPercent: 100, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, pointerEvents: "auto" }, "<");
         } else {

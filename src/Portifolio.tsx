@@ -1,7 +1,11 @@
 import React, { useRef } from 'react';
 import { Background } from './components/ui/Background';
 import { Hero } from './components/sections/Hero';
+import { TechStack } from './components/sections/TechStack';
+
+
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+
                               
 
 const Portfolio: React.FC = () => {
@@ -9,12 +13,12 @@ const Portfolio: React.FC = () => {
   
   // Refs das seções
   const heroRef = useRef<HTMLDivElement>(null);
-
+  const techRef = useRef<HTMLDivElement>(null);
   
   // Ref específica para animar o CodeTyper dentro do Hero
   const codeBoxRef = useRef<HTMLDivElement>(null);
 
-  const sectionsRefs = [heroRef, ];
+  const sectionsRefs = [heroRef, techRef];
 
   // Hook Customizado
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
@@ -34,7 +38,8 @@ const Portfolio: React.FC = () => {
       {/* Seções */}
       <Hero ref={heroRef} codeBoxRef={codeBoxRef} />
 
-
+      <TechStack ref={techRef} isActive={activeSectionIndex === 1} />
+      
       <div className="absolute bottom-4 w-full text-center text-[10px] text-zinc-700 font-mono pointer-events-none z-50">
         © 2025 DEV.INIT • SCROLL TO NAVIGATE
       </div>

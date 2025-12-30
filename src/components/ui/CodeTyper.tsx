@@ -30,7 +30,7 @@ const CodeTyper = forwardRef<HTMLDivElement>((props, ref) => {
       const sliceEnd = displayedChars - currentCount;
       const content = token.text.slice(0, sliceEnd);
       currentCount += token.text.length;
-      return <span key={index} className={token.color}>{content}</span>;
+      return <span key={index} className={`${token.color}`}>{content}</span>;
     });
   };
 
