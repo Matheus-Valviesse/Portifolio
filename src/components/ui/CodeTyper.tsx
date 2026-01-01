@@ -45,10 +45,10 @@ const CodeTyper = forwardRef<HTMLDivElement>((props, ref) => {
         <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
         <span className="ml-2 text-xs text-zinc-500 font-mono">portfolio.tsx</span>
       </div>
-      <pre className="font-mono text-sm md:text-xl p-6 pt-12 md:pt-14 text-left w-full overflow-x-auto leading-relaxed scrollbar-hide">
+      <pre className="font-mono text-[16px] md:text-xl p-6 pt-12 md:pt-14 text-left w-full overflow-x-auto leading-relaxed scrollbar-hide">
         <code>
           {renderCode()}
-          <span className="animate-pulse text-pink-500 font-bold">|</span>
+          <span className="animate-pulse bg-pink-500 text-pink-500  font-bold w-2">|</span>
         </code>
       </pre>
     </div>

@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { Background } from './components/ui/Background';
 import { Hero } from './components/sections/Hero';
 import { TechStack } from './components/sections/TechStack';
-
-
+import { Experience } from './components/sections/Experience';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+
 
                               
 
@@ -14,11 +14,11 @@ const Portfolio: React.FC = () => {
   // Refs das seções
   const heroRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
-  
+  const expRef = useRef<HTMLDivElement>(null);
   // Ref específica para animar o CodeTyper dentro do Hero
   const codeBoxRef = useRef<HTMLDivElement>(null);
 
-  const sectionsRefs = [heroRef, techRef];
+  const sectionsRefs = [heroRef, techRef, expRef];
 
   // Hook Customizado
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
@@ -37,8 +37,8 @@ const Portfolio: React.FC = () => {
 
       {/* Seções */}
       <Hero ref={heroRef} codeBoxRef={codeBoxRef} />
-
       <TechStack ref={techRef} isActive={activeSectionIndex === 1} />
+      <Experience ref={expRef} isActive={activeSectionIndex === 2} />
       
       <div className="absolute bottom-4 w-full text-center text-[10px] text-zinc-700 font-mono pointer-events-none z-50">
         © 2025 DEV.INIT • SCROLL TO NAVIGATE

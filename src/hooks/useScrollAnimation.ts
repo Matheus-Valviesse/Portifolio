@@ -1,11 +1,11 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Observer } from 'gsap/Observer';
+import { Observer } from 'gsap/all';
 
 gsap.registerPlugin(Observer);
 
 export const useScrollAnimation = (
-  sections: React.RefObject<HTMLDivElement>[], 
+  sections: React.RefObject<HTMLDivElement | null>[] , 
   codeBoxRef: React.RefObject<HTMLDivElement>
 ) => {
   const currentIndex = useRef(0);
@@ -16,7 +16,7 @@ export const useScrollAnimation = (
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // 1. Setup Inicial
-      sections.forEach((sec, i) => {
+      sections?.forEach((sec, i) => {
         if (i === 0) gsap.set(sec.current, { autoAlpha: 1, pointerEvents: "auto" });
         else gsap.set(sec.current, { autoAlpha: 0, pointerEvents: "none" });
       });
@@ -38,8 +38,8 @@ export const useScrollAnimation = (
         console.log(index)
         if (animating.current) return;
         animating.current = true;
-        const currentRef = sections[currentIndex.current].current;
-        const nextRef = sections[index].current;
+        const currentRef = sections?.[currentIndex.current].current;
+        const nextRef = sections?.[index].current;
         
         const tl = gsap.timeline({
           defaults: { duration: 1.2, ease: "power3.inOut" },
