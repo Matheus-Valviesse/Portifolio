@@ -20,7 +20,7 @@ export const useScrollAnimation = (
         if (i === 0) gsap.set(sec.current, { autoAlpha: 1, pointerEvents: "auto" });
         else gsap.set(sec.current, { autoAlpha: 0, pointerEvents: "none" });
       });
-
+dasdadsad
       // 2. Animação Intro (Hero)
       const introTl = gsap.timeline({ delay: 0.2 });
       introTl
