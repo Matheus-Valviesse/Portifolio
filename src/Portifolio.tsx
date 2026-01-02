@@ -24,7 +24,7 @@ const Portfolio: React.FC = () => {
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
 
   return (
-    <div ref={containerRef} className="h-[100dvh] w-full bg-[#050505] text-white overflow-hidden relative font-sans selection:bg-pink-500/30 selection:text-pink-200">
+    <div ref={containerRef} className="h-dvh w-full bg-[#050505] text-white overflow-hidden relative font-sans selection:bg-pink-500/30 selection:text-pink-200">
       
       <Background />
 

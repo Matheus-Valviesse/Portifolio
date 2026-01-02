@@ -6,7 +6,7 @@ gsap.registerPlugin(Observer);
 
 export const useScrollAnimation = (
   sections: React.RefObject<HTMLDivElement | null>[] , 
-  codeBoxRef: React.RefObject<HTMLDivElement>
+  codeBoxRef: React.RefObject<HTMLDivElement | null>
 ) => {
   const currentIndex = useRef(0);
   const animating = useRef(false);
@@ -20,7 +20,7 @@ export const useScrollAnimation = (
         if (i === 0) gsap.set(sec.current, { autoAlpha: 1, pointerEvents: "auto" });
         else gsap.set(sec.current, { autoAlpha: 0, pointerEvents: "none" });
       });
-dasdadsad
+
       // 2. Animação Intro (Hero)
       const introTl = gsap.timeline({ delay: 0.2 });
       introTl
@@ -41,6 +41,8 @@ dasdadsad
         const currentRef = sections?.[currentIndex.current].current;
         const nextRef = sections?.[index].current;
         
+        if (!currentRef || !nextRef) return;
+
         const tl = gsap.timeline({
           defaults: { duration: 1.2, ease: "power3.inOut" },
           onComplete: () => { 
@@ -76,7 +78,7 @@ dasdadsad
 
     });
     return () => ctx.revert();
-  }, []);
+  }, [sections, codeBoxRef]);
 
   return { activeSectionIndex };
 };

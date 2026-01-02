@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { CODE_TOKENS } from '../../data/constants';
 
 const fullTextLength = CODE_TOKENS.reduce((acc, token) => acc + token.text.length, 0);

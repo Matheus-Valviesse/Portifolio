@@ -1,4 +1,4 @@
-import React, { forwardRef, useLayoutEffect, useRef } from 'react';
+import { forwardRef, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Briefcase, Download, Calendar } from 'lucide-react';
 import { EXPERIENCES } from '../../data/constants';
@@ -54,7 +54,7 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
             <div key={i} className="exp-item opacity-0 relative pl-8 md:pl-12 group">
               
               {/* Bolinha da Timeline */}
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-600 group-hover:border-pink-500 group-hover:bg-pink-500 transition-all shadow-[0_0_0_4px_rgba(0,0,0,1)]"></div>
+              <div className="absolute -left-2.25 top-0 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-600 group-hover:border-pink-500 group-hover:bg-pink-500 transition-all shadow-[0_0_0_4px_rgba(0,0,0,1)]"></div>
               
               {/* Título e Empresa */}
               <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mb-2">

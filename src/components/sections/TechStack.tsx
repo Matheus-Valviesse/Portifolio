@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useLayoutEffect } from 'react';
+import { forwardRef, useState, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { TECH_STACK } from '../../data/constants';
 
@@ -6,6 +6,8 @@ export const TechStack = forwardRef<HTMLDivElement, { isActive: boolean }>((prop
   const [filter, setFilter] = useState("ALL");
 
   const filteredTechs = TECH_STACK.filter(t => filter === "ALL" || t.cat === filter);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     // Só roda se a seção estiver ativa
@@ -29,7 +31,7 @@ export const TechStack = forwardRef<HTMLDivElement, { isActive: boolean }>((prop
         ease: "back.out(1.7)",
         overwrite: "auto"
       });
-    }, ref); // Escopo definido na ref da section
+    }, containerRef); // Escopo definido na ref da section
 
     return () => ctx.revert(); // Limpa tudo ao desmontar ou mudar o filtro
   }, [props.isActive, filter]);
@@ -38,7 +40,7 @@ export const TechStack = forwardRef<HTMLDivElement, { isActive: boolean }>((prop
     <section ref={ref} className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full h-full p-4">
         <div className="w-full max-w-6xl px-4">
             {/* Título */}
-            <h2 className="text-3xl md:text-6xl font-black uppercase mb-8 text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-600 tracking-tighter">
+            <h2 className="text-3xl md:text-6xl font-black uppercase mb-8 text-center text-transparent bg-clip-text bg-linear-to-b from-white to-zinc-600 tracking-tighter">
               Arsenal
             </h2>
 
