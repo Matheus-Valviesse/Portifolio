@@ -8,22 +8,31 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
   const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!props.isActive || !containerRef.current) return;
-
     const ctx = gsap.context(() => {
-      // 1. Limpa e Define estado inicial (invisível e deslocado para a esquerda)
       gsap.killTweensOf(".exp-item");
-      gsap.set(".exp-item", { opacity: 0, x: -30 });
 
-      // 2. Animação de entrada (Stagger)
-      gsap.to(".exp-item", {
-        x: 0,
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.15, // Um item aparece 0.15s depois do outro
-        ease: "power3.out",
-        delay: 0.3 // Pequeno delay para esperar a transição de seção terminar
-      });
+      if (props.isActive) {
+        // --- ATIVO: FORÇA A ANIMAÇÃO DO ZERO ---
+        // DE: Invisível, deslocado para a esquerda (-50px)
+        // PARA: Visível, posição original (0)
+        gsap.fromTo(".exp-item", 
+          { 
+            autoAlpha: 0, 
+            x: -50 
+          },
+          {
+            duration: 0.6,
+            autoAlpha: 1,
+            x: 0,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+          }
+        );
+      } else {
+        // --- INATIVO: RESET ---
+        gsap.set(".exp-item", { autoAlpha: 0 });
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -32,11 +41,10 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
   return (
     <section 
       ref={ref} 
-      className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full h-full bg-[#050505]"
+      className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full h-full bg-[#050505] p-4"
     >
-      <div className="w-full max-w-5xl px-4 flex flex-col h-full justify-center">
+      <div ref={containerRef} className="w-full max-w-5xl px-4 flex flex-col h-full justify-center">
         
-        {/* CABEÇALHO DA SEÇÃO */}
         <div className="flex items-center justify-between mb-10 border-b border-zinc-800 pb-4">
           <h2 className="text-3xl md:text-5xl font-black uppercase text-white flex items-center gap-3">
             <Briefcase className="text-pink-500" size={32} /> Experiência
@@ -48,15 +56,12 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
           </button>
         </div>
 
-        {/* LISTA DE EXPERIÊNCIAS (TIMELINE) */}
         <div className="relative border-l-2 border-zinc-800 ml-3 md:ml-6 space-y-10">
           {EXPERIENCES.map((exp, i) => (
-            <div key={i} className="exp-item opacity-0 relative pl-8 md:pl-12 group">
+            <div key={i} className="exp-item relative pl-8 md:pl-12 group">
               
-              {/* Bolinha da Timeline */}
-              <div className="absolute -left-2.25 top-0 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-600 group-hover:border-pink-500 group-hover:bg-pink-500 transition-all shadow-[0_0_0_4px_rgba(0,0,0,1)]"></div>
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-600 group-hover:border-pink-500 group-hover:bg-pink-500 transition-all shadow-[0_0_0_4px_rgba(0,0,0,1)]"></div>
               
-              {/* Título e Empresa */}
               <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mb-2">
                 <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-pink-400 transition-colors">
                   {exp.role}
@@ -67,12 +72,10 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
                 </span>
               </div>
               
-              {/* Data */}
               <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-3 uppercase tracking-wider">
                 <Calendar size={12} /> {exp.period}
               </div>
               
-              {/* Descrição */}
               <p className="text-zinc-400 text-sm md:text-base max-w-2xl leading-relaxed">
                 {exp.desc}
               </p>
