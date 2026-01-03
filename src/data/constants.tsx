@@ -50,3 +50,24 @@ export const EXPERIENCES = [
     desc: "Manutenção de sistemas legados, correção de bugs e criação de interfaces responsivas seguindo o design system da empresa."
   }
 ];
+
+export const PROJECTS = [
+  {
+    id: 1,
+    title: "Plataforma E-learning",
+    desc: "Plataforma completa de cursos com streaming de vídeo, chat em tempo real e pagamentos via Stripe.",
+    techs: "Next.js, Supabase, Stripe"
+  },
+  {
+    id: 2,
+    title: "Dashboard Financeiro",
+    desc: "Aplicação de gestão financeira com gráficos complexos usando D3.js e exportação de relatórios.",
+    techs: "React, D3.js, Python"
+  },
+  {
+    id: 3,
+    title: "App Social",
+    desc: "Rede social para desenvolvedores compartilharem snippets de código. Mobile-first.",
+    techs: "React Native, Firebase"
+  }
+];

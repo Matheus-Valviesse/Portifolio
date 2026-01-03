@@ -4,6 +4,7 @@ import { Hero } from './components/sections/Hero';
 import { TechStack } from './components/sections/TechStack';
 import { Experience } from './components/sections/Experience';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+import { Projects } from './components/sections/Projects';
 
 const Portfolio: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,12 +12,15 @@ const Portfolio: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   const expRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
+
+
   const codeBoxRef = useRef<HTMLDivElement>(null);
 
   // --- CORREÇÃO AQUI ---
   // O useMemo 'congela' essa lista. Sem isso, toda vez que muda o slide,
   // o código acha que é uma lista nova e reseta a animação.
-  const sectionsRefs = useMemo(() => [heroRef, techRef, expRef], []);
+  const sectionsRefs = useMemo(() => [heroRef, projectsRef, techRef, expRef], []);
 
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
 
@@ -32,8 +36,9 @@ const Portfolio: React.FC = () => {
       </div>
 
       <Hero ref={heroRef} codeBoxRef={codeBoxRef} />
-      <TechStack ref={techRef} isActive={activeSectionIndex === 1} />
-      <Experience ref={expRef} isActive={activeSectionIndex === 2} />
+      <Projects ref={projectsRef} />
+      <TechStack ref={techRef} isActive={activeSectionIndex === 2} />
+      <Experience ref={expRef} isActive={activeSectionIndex === 3} />
       
       <div className="absolute bottom-4 w-full text-center text-[10px] text-zinc-700 font-mono pointer-events-none z-50">
         © 2025 DEV.INIT • SCROLL TO NAVIGATE
