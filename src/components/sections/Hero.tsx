@@ -1,25 +1,17 @@
 import React, { forwardRef, useRef } from 'react';
-import CodeTyper from '../ui/CodeTyper'; // Verifique se o caminho está correto
-import { GlitchText } from '../ui/GlitchText'; 
+import CodeTyper from '../ui/hero/CodeTyper'; // Verifique o caminho
+import { GlitchText } from '../ui/hero/GlitchText';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=VT323&display=swap');
-  .font-pixel { font-family: 'VT323', monospace; }
-  .font-display { font-family: 'Space Grotesk', sans-serif; }
-  /* Removi o CSS de glitch antigo pois o componente GlitchText resolve isso com GSAP */
-`;
-
 export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivElement> | undefined }>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null); // Mudei para Div pois vai envolver o componente
-  const boxWrapperRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline();
     
-    // 1. Fade Inicial
+    // 1. Fade Inicial do Background
     tl.from(containerRef.current, { opacity: 0, duration: 0.5 });
     
     // 2. Título (GlitchText) entra subindo
@@ -30,26 +22,16 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivEl
       ease: "power4.out" 
     });
 
-    // 3. CAIXA VERDE CRESCE
-    if (boxWrapperRef.current) {
-      tl.from(boxWrapperRef.current, {
-        scale: 0,         
-        opacity: 0,       
-        transformOrigin: "center center", 
-        duration: 0.8,    
-        ease: "back.out(1.2)" 
-      }, "-=0.4"); // Ajustei um pouco o tempo para ficar mais dinâmico
-    }
+    // O CodeTyper agora cuida da sua própria animação!
+    // Não precisamos animar o container dele aqui.
   }, { scope: containerRef });
 
   return (
     <>
-      <style>{STYLES}</style>
       <section ref={ref} className="relative min-h-screen w-full flex items-center justify-center bg-[#050505] text-white overflow-hidden font-display py-12 md:py-0">
         
         {/* === BACKGROUND === */}
         <div ref={containerRef} className="absolute inset-0 pointer-events-none">
-           {/* Grid Layer */}
            <div 
              className="absolute inset-0"
              style={{
@@ -80,24 +62,14 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivEl
           {/* 2. CONTEÚDO (Texto + Código) */}
           <div className="flex-1 w-full text-center lg:text-right flex flex-col items-center lg:items-end">
             
-            {/* === BLOCO DO TÍTULO GLITCH === */}
+            {/* TÍTULO GLITCH */}
             <div ref={titleRef} className="mb-8 relative flex flex-col items-center lg:items-end z-20">
-                {/* Ajuste o text-5xl/8xl aqui para controlar o tamanho do texto glitch */}
-                <div className="text-5xl md:text-8xl font-black italic tracking-tighter">
-                  <GlitchText text="OLÁ, BEM VINDO" />
-                </div>
+               <div className="text-5xl md:text-7xl font-black italic tracking-tighter">
+                 <GlitchText text="OLÁ, BEM VINDO(A)." />
+               </div>
             </div>
 
-            {/* Terminal Box Wrapper */}
-            <div ref={boxWrapperRef} className="relative w-full max-w-2xl group mt-4">
-                <div className="absolute -top-6 right-0 lg:right-0 left-0 lg:left-auto mx-auto lg:mx-0 w-fit bg-[#00FF41] px-3 py-1 text-lg text-black font-pixel z-10 leading-none tracking-widest">
-                    SRC_CODE
-                </div>
-                
-                <div className="border-2 border-[#00FF41] bg-[#050505] p-6 shadow-[0_0_30px_rgba(0,255,65,0.15)] text-left relative z-20">
-                   <CodeTyper ref={props.codeBoxRef} startDelay={1.6} />
-                </div>
-            </div>
+            <CodeTyper startDelay={1.4} />
 
           </div>
         </div>
