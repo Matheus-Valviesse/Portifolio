@@ -5,7 +5,8 @@ import { TechStack } from './components/sections/TechStack';
 import { Experience } from './components/sections/Experience';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
 import { Projects } from './components/sections/Projects';
-
+import { Contact } from './components/sections/Contact';
+ 
 const Portfolio: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -13,6 +14,7 @@ const Portfolio: React.FC = () => {
   const techRef = useRef<HTMLDivElement>(null);
   const expRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
 
   const codeBoxRef = useRef<HTMLDivElement>(null);
@@ -20,7 +22,7 @@ const Portfolio: React.FC = () => {
   // --- CORREÇÃO AQUI ---
   // O useMemo 'congela' essa lista. Sem isso, toda vez que muda o slide,
   // o código acha que é uma lista nova e reseta a animação.
-  const sectionsRefs = useMemo(() => [heroRef, projectsRef, techRef, expRef], []);
+  const sectionsRefs = useMemo(() => [heroRef, projectsRef, techRef, expRef,contactRef], []);
 
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
 
@@ -31,7 +33,7 @@ const Portfolio: React.FC = () => {
 
       <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
         {sectionsRefs.map((_, i) => (
-          <div key={i} className={`w-2 h-2 rounded-full transition-all duration-500 border border-white/20 ${activeSectionIndex === i ? 'bg-pink-500 scale-150 border-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'bg-transparent hover:bg-white/20'}`} />
+          <div key={i} className={`w-3 h-3 rounded-full transition-all duration-500 border border-white/20 ${activeSectionIndex === i ? 'bg-green-500 scale-150 border-green-500 shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'bg-transparent hover:bg-white/20'}`} />
         ))}
       </div>
 
@@ -39,8 +41,9 @@ const Portfolio: React.FC = () => {
       <Projects ref={projectsRef} />
       <TechStack ref={techRef} isActive={activeSectionIndex === 2} />
       <Experience ref={expRef} isActive={activeSectionIndex === 3} />
+      <Contact ref={contactRef} />
       
-      <div className="absolute bottom-4 w-full text-center text-[10px] text-zinc-700 font-mono pointer-events-none z-50">
+      <div className="absolute bottom-4 w-full text-center text-[12px] text-zinc-700 font-mono pointer-events-none z-50">
         © 2025 DEV.INIT • SCROLL TO NAVIGATE
       </div>
     </div>

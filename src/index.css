@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'VT323';
+  src: url('./assets/fonts/VT323-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CORREÇÃO AQUI */
+@font-face {
+  font-family: "Jersey 10"; /* Use ponto e vírgula aqui */
+  src: url('./assets/fonts/Jersey10-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Como você está usando Tailwind v4, para USAR essa fonte, 
+   você deve definir a variável de tema logo abaixo:
+*/
+@theme {
+  --font-pixel: 'VT323', monospace;
+  --font-jersey: "Jersey 10", sans-serif;
+}

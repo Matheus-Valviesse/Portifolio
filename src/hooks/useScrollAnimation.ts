@@ -81,9 +81,6 @@ export const useScrollAnimation = (
     });
     return () => ctx.revert();
     
-    // --- CORREÇÃO FINAL ---
-    // Deixe este array VAZIO []. 
-    // Isso impede que o Hook rode de novo quando 'activeSectionIndex' mudar.
   }, []); 
 
   return { activeSectionIndex };
