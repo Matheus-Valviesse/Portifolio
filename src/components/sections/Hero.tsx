@@ -28,7 +28,7 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivEl
 
   return (
     <>
-      <section ref={ref} className="relative min-h-screen w-full flex items-center justify-center bg-[#050505] text-white overflow-hidden font-display py-12 md:py-0">
+      <section ref={ref} className="relative min-h-screen w-full flex items-center justify-center bg-[#050505] text-white overflow-hidden font-display py-6 lg:py-10 md:py-0">
         
         {/* === BACKGROUND === */}
         <div ref={containerRef} className="absolute inset-0 pointer-events-none">
@@ -48,10 +48,10 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivEl
         </div>
 
         {/* Container Principal */}
-        <div className="relative z-10 max-w-7xl w-full p-6 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+        <div className="relative z-10 max-w-7xl w-full p-6 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           
           {/* 1. IMAGEM DE PERFIL */}
-          <div className="relative group w-48 h-48 md:w-80 md:h-80 shrink-0 lg:mr-auto ">
+          <div className="relative group w-48 h-48 md:w-60 md:h-60 lg:w-80 lg:h-80 shrink-0 lg:mr-auto ">
              <div className="absolute inset-0 rounded-full border-2 border-[#00FF41]/30 group-hover:border-[#00FF41] transition-colors duration-500"></div>
              <div className="relative w-full h-full rounded-full overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-[#00FF41]/50 animate-[scanline_3s_linear_infinite] shadow-[0_0_15px_rgba(0,255,65,0.8)] z-20"></div>
@@ -64,7 +64,7 @@ export const Hero = forwardRef<HTMLDivElement, { codeBoxRef: React.Ref<HTMLDivEl
             
             {/* TÍTULO GLITCH */}
             <div ref={titleRef} className="mb-8 relative flex flex-col items-center lg:items-end z-20">
-               <div className="text-5xl md:text-7xl font-black italic tracking-tighter">
+               <div className="text-4xl md:text-5xl lg:text-7xl font-black italic tracking-tighter">
                  <GlitchText text="OLÁ, BEM VINDO(A)." />
                </div>
             </div>

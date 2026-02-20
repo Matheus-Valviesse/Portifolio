@@ -8,7 +8,6 @@
   font-display: swap;
 }
 
-/* CORREÇÃO AQUI */
 @font-face {
   font-family: "Jersey 10"; /* Use ponto e vírgula aqui */
   src: url('./assets/fonts/Jersey10-Regular.ttf') format('truetype');
@@ -17,10 +16,49 @@
   font-display: swap;
 }
 
-/* Como você está usando Tailwind v4, para USAR essa fonte, 
-   você deve definir a variável de tema logo abaixo:
-*/
+@font-face {
+  font-family: "ShareTechMono"; /* Use ponto e vírgula aqui */
+  src: url('./assets/fonts/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-pixel: 'VT323', monospace;
   --font-jersey: "Jersey 10", sans-serif;
+  --font-shareTechMono: "ShareTechMono", monospace;
+}
+
+@layer utilities {
+  .text-tv {
+    position: relative;
+  }
+
+  .text-tv::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    /* AQUI ESTÁ A MUDANÇA */
+    background: repeating-linear-gradient(
+      to bottom,
+      
+      /* Parte visível (Cor original) - Agora tem 4px de altura */
+      transparent 0px,
+      transparent 3px,       
+      
+      /* Parte escura (Filtro) - Começa no 4px e vai até o 8px */
+      rgba(0, 0, 0, 0.35) 6px, 
+      rgba(0, 0, 0, 0.35) 4px
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }

@@ -12,9 +12,6 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
       gsap.killTweensOf(".exp-item");
 
       if (props.isActive) {
-        // --- ATIVO: FORÇA A ANIMAÇÃO DO ZERO ---
-        // DE: Invisível, deslocado para a esquerda (-50px)
-        // PARA: Visível, posição original (0)
         gsap.fromTo(".exp-item", 
           { 
             autoAlpha: 0, 
@@ -30,7 +27,7 @@ export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((pro
           }
         );
       } else {
-        // --- INATIVO: RESET ---
+
         gsap.set(".exp-item", { autoAlpha: 0 });
       }
     }, containerRef);

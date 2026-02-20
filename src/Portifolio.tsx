@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react'; // <--- ADICIONE useMemo
+import React, { useRef, useMemo } from 'react'; 
 import { Background } from './components/ui/Background';
 import { Hero } from './components/sections/Hero';
 import { TechStack } from './components/sections/TechStack';
@@ -19,9 +19,9 @@ const Portfolio: React.FC = () => {
 
   const codeBoxRef = useRef<HTMLDivElement>(null);
 
-  // --- CORREÇÃO AQUI ---
-  // O useMemo 'congela' essa lista. Sem isso, toda vez que muda o slide,
-  // o código acha que é uma lista nova e reseta a animação.
+  
+  
+  
   const sectionsRefs = useMemo(() => [heroRef, projectsRef, techRef, expRef,contactRef], []);
 
   const { activeSectionIndex } = useScrollAnimation(sectionsRefs, codeBoxRef);
@@ -31,7 +31,7 @@ const Portfolio: React.FC = () => {
       
       <Background />
 
-      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
+      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2">
         {sectionsRefs.map((_, i) => (
           <div key={i} className={`w-3 h-3 rounded-full transition-all duration-500 border border-white/20 ${activeSectionIndex === i ? 'bg-green-500 scale-150 border-green-500 shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'bg-transparent hover:bg-white/20'}`} />
         ))}

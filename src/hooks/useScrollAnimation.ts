@@ -14,7 +14,7 @@ export const useScrollAnimation = (
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Setup Inicial - Define quem está visível
+      
       sections.forEach((sec, i) => {
         if (!sec.current) return;
         if (i === 0) {
@@ -24,7 +24,7 @@ export const useScrollAnimation = (
         }
       });
 
-      // 2. Intro (Hero)
+      
       if (currentIndex.current === 0) {
           const introTl = gsap.timeline({ delay: 0.2 });
           introTl
@@ -39,7 +39,7 @@ export const useScrollAnimation = (
             .from(".hero-status", { width: 0, autoAlpha: 0, duration: 0.5 }, "-=0.2");
       }
 
-      // 3. Transição
+      
       const gotoSection = (index: number) => {
         if (animating.current) return;
         animating.current = true;
@@ -54,7 +54,7 @@ export const useScrollAnimation = (
           onComplete: () => { 
              animating.current = false; 
              currentIndex.current = index;
-             setActiveSectionIndex(index); // Atualiza o React, mas NÃO reinicia este Hook
+             setActiveSectionIndex(index); 
           }
         });
 
@@ -68,7 +68,7 @@ export const useScrollAnimation = (
         }
       };
 
-      // 4. Observer
+      
       Observer.create({
         type: "wheel,touch,pointer",
         wheelSpeed: 1,
