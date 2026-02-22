@@ -35,19 +35,25 @@ export const EXPERIENCES = [
     role: "Desenvolvedor Front-end Sênior",
     company: "Tech Solutions Inc.",
     period: "2023 - Momento",
-    desc: "Liderando a migração de monólitos para micro-frontends usando Module Federation e React. Foco em performance e escalabilidade."
+    desc: "Liderando a migração de monólitos para micro-frontends usando Module Federation e React. Foco em performance e escalabilidade.",
+    stack:["react", "tailwind", "framer-motion"],
+    current:true
   },
   {
     role: "Desenvolvedor Full Stack",
     company: "Creative Agency",
     period: "2021 - 2023",
-    desc: "Desenvolvimento de aplicações web interativas com Next.js e animações complexas com GSAP. Criação de APIs REST com Node.js."
+    desc: "Desenvolvimento de aplicações web interativas com Next.js e animações complexas com GSAP. Criação de APIs REST com Node.js.",
+    stack:["react-TS", "tailwind", "Gsap", ".DOTNET"],
+    current:false
   },
   {
     role: "Desenvolvedor Júnior",
     company: "StartUp X",
     period: "2020 - 2021",
-    desc: "Manutenção de sistemas legados, correção de bugs e criação de interfaces responsivas seguindo o design system da empresa."
+    desc: "Manutenção de sistemas legados, correção de bugs e criação de interfaces responsivas seguindo o design system da empresa.",
+    stack:["Tauri", "Rust","Tailwind", "framer-motion"],
+    current:false
   }
 ];
 

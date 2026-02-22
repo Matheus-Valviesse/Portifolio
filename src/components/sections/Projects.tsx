@@ -6,8 +6,8 @@ export const Projects = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <section ref={ref} className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full h-full">
       <div className="container mx-auto px-4 max-w-6xl w-full">
-        <h2 className="text-3xl md:text-7xl uppercase mb-6 md:mb-12 text-center text-tv font-sans font-bold " data-text="Selected Works">
-          Selected <span className=" text-[#00FF41]">Works</span>
+        <h2 className="text-3xl md:text-7xl uppercase mb-6 md:mb-12 text-center text-tv font-sans font-bold " data-text="Selected Projects">
+          Selected <span className=" text-[#00FF41]">Projects</span>
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
