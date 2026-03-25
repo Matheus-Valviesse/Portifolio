@@ -55,7 +55,7 @@ export const GlitchTitle: React.FC<GlitchTitleProps> = ({ text = "MAIN STACK" })
   }, []);
 
   return (
-    <div className="relative inline-block text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none select-none">
+    <div className="relative inline-block text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none select-none">
       <h1
         ref={mainRef}
         className="relative z-10 text-gray-300"

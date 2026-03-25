@@ -1,4 +1,4 @@
-import { forwardRef, useLayoutEffect, useRef } from 'react';
+import { forwardRef, useLayoutEffect, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { Briefcase, Download, Calendar } from 'lucide-react';
 import { EXPERIENCES } from '../../data/constants';
@@ -6,8 +6,9 @@ import { EXPERIENCES } from '../../data/constants';
 export const Experience = forwardRef<HTMLDivElement, { isActive: boolean }>((props, ref) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null); 
 
-useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.killTweensOf(".exp-item");
 
@@ -34,16 +35,67 @@ useLayoutEffect(() => {
     return () => ctx.revert();
   }, [props.isActive]);
 
+  // --- SMART SCROLL LOCK ---
+  useEffect(() => {
+    const el = scrollAreaRef.current;
+    if (!el || !props.isActive) return;
+
+    let startY = 0;
+
+    const handleWheel = (e: WheelEvent) => {
+      const isAtTop = el.scrollTop === 0;
+      const isAtBottom = Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) <= 2;
+
+      if ((e.deltaY > 0 && !isAtBottom) || (e.deltaY < 0 && !isAtTop)) {
+        e.stopPropagation();
+        el.scrollTop += e.deltaY;
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const currentY = e.touches[0].clientY;
+      const deltaY = startY - currentY;
+      startY = currentY;
+
+      const isAtTop = el.scrollTop === 0;
+      const isAtBottom = Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) <= 2;
+
+      if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
+        e.stopPropagation(); 
+        el.scrollTop += deltaY; 
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    el.addEventListener('touchstart', handleTouchStart, { passive: false });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [props.isActive]);
+
   return (
     <section 
       ref={ref} 
       className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full h-full bg-[#050505] p-4"
     >
-      
+      {/* Estilo embutido para esconder a barra de rolagem mas permitir o scroll */}
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
       
       <div ref={containerRef} className="w-full max-w-5xl px-4 flex flex-col h-full justify-center">
         
-        <div className="flex items-center justify-between mb-10 border-b border-zinc-800 pb-4">
+        {/* Adicionado shrink-0 aqui para o header não amassar em telas pequenas */}
+        <div className="flex items-center justify-between mb-10 border-b border-zinc-800 pb-4 shrink-0">
           
           <div className="scanlines absolute inset-0 z-50 pointer-events-none opacity-20"></div>
 
@@ -64,42 +116,47 @@ useLayoutEffect(() => {
           </button>
         </div>
 
-        <div className="relative border-l-2 border-zinc-800 ml-3 md:ml-6 space-y-10">
-          {EXPERIENCES.map((exp, i) => (
-            <div data-current={exp.current}  key={i} className={`exp-item relative pl-8 md:pl-12 group `}>
-              
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-900 border-3 border-zinc-600 transition-all shadow-[0_0_0_10px_rgba(0,0,0,1)] group-hover:border-[#00fa3e] group-hover:shadow-[0_0_10px_6px_rgba(0,255,65,0.3)]"></div>
-
-              <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mb-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#f200f2] transition-colors">
-                  {exp.role}
-                </h3>
+        {/* CONTAINER ROLÁVEL COM A REF DO SCROLL LOCK */}
+        <div 
+          ref={scrollAreaRef} 
+          className="relative flex-1 overflow-y-auto no-scrollbar pb-10"
+        >
+          <div className="relative border-l-2 border-zinc-800 ml-2 md:ml-6 space-y-10">
+            {EXPERIENCES.map((exp, i) => (
+              <div data-current={exp.current}  key={i} className={`exp-item relative pl-4 md:pl-12 group `}>
                 
-                <div className="flex items-center gap-2 text-[14px] font-mono group-data-[current=true]:text-[#00fa3e] group-data-[current='true']:bg-[#00fa3e10] uppercase tracking-wider border p-1">
-                  // {exp.period}
+                <div className="absolute -left-[8px] top-0 w-4 h-4 rounded-full bg-zinc-900 border-3 border-zinc-600 transition-all shadow-[0_0_0_10px_rgba(0,0,0,1)] group-hover:border-[#00fa3e] group-hover:shadow-[0_0_10px_6px_rgba(0,255,65,0.3)]"></div>
+
+                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#f200f2] transition-colors">
+                    {exp.role}
+                  </h3>
+                  
+                  <div className="flex items-center gap-2 text-[14px] font-mono group-data-[current=true]:text-[#00fa3e] group-data-[current='true']:bg-[#00fa3e10] uppercase tracking-wider border p-1">
+                    // {exp.period}
+                  </div>
                 </div>
+                
+                <span className=" text-[14px] md:text-lg text-[#6b6e6c] uppercase font-medium ">
+                  {exp.company}
+                </span>
+                
+                <div className=' bg-white/5 p-4 md:p-6 border-l-3 group-hover:border-[#00fa3e] border-white/20 mt-2'>
+                  <p className="text-zinc-400 text-[12px] md:text-[18px] max-w-2xl leading-relaxed">
+                    {exp.desc}
+                  </p>
+
+                  {/* Adicionado apenas o flex-wrap aqui para quebrar a linha no celular */}
+                  <div className="mt-2 flex flex-wrap gap-2 md:gap-4 text-zinc-400 group-hover:text-[#f200f2] transition-colors text-[10px] md:text-[14px]">
+                    {exp.stack.map((stk,i)=>(
+                      <span id={stk+i} key={i} className='uppercase'>[ {stk} ]</span>
+                    ))}
+                  </div>
+                </div>
+
               </div>
-              
-              <span className="text-lg text-[#6b6e6c] uppercase font-medium ">
-                {exp.company}
-              </span>
-              
-              <div className=' bg-white/5 p-6 border-l-3 border-[#00fa3e] mt-2'>
-                <p className="text-zinc-400 text-[14px] md:text-[18px] max-w-2xl leading-relaxed">
-                  {exp.desc}
-                </p>
-
-                <div className="mt-2 flex gap-4 text-zinc-400 group-data-[current=true]:text-[#f200f2] transition-colors">
-                  {exp.stack.map((stk,i)=>(
-                    <span id={stk+i} className='uppercase'>[ {stk} ]</span>
-                  ))}
-              </div>
-            </div>
-
-          
-
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
       </div>
